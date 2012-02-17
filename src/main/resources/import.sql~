@@ -1,0 +1,7 @@
+INSERT INTO PERSON (id, firstName, lastName) values (1, 'Mr.', 'Hand')
+INSERT INTO PERSON (id, firstName, lastName) values (2, 'Jack', 'Smith')
+INSERT INTO PERSON (id, firstName, lastName) values (3, 'Jack', 'Handy')
+
+INSERT INTO TEACHER (id, tenured) values (1, 0)
+INSERT INTO TEACHER (id, tenured) values (2, 0)
+INSERT INTO TEACHER (id, tenured) values (3, 1)
