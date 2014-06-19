@@ -8,13 +8,13 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
             <property name="javax.persistence.jdbc.driver"
-                      value="com.mysql.jdbc.Driver"/>
+                      value="org.hsqldb.jdbc.JDBCDriver"/>
             <property name="javax.persistence.jdbc.url"
-                      value="jdbc:mysql://localhost:3306/mydb"/>
-            <property name="javax.persistence.jdbc.user" value="danno"/>
-            <property name="javax.persistence.jdbc.password" value="iohe4u"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+                      value="jdbc:hsqldb:hsql://localhost/mydb"/>
+            <property name="javax.persistence.jdbc.user" value="SA"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
 
+            <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
 
             <property name="hibernate.connection.provider_class"
                       value="org.hibernate.connection.C3P0ConnectionProvider" />
@@ -25,9 +25,8 @@
             <property name="hibernate.c3p0.max_statements" value="0" />
             <property name="hibernate.c3p0.timeout" value="100" />
 
-
             <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
             <property name="hibernate.hbm2ddl.import_files" value="/import.sql"/>
         </properties>
     </persistence-unit>
