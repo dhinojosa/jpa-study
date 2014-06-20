@@ -2,10 +2,10 @@ package com.evolutionnext.jpa.study;
 
 import org.junit.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import javax.persistence.criteria.*;
+
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -33,17 +33,28 @@ public class QueryCriteriaTest {
 
 
     @Test
-    public void deleteAlbum() {
+    public void basicQueryCriteria() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Album> cq = cb.createQuery(Album.class); //return type
+        Root<Album> a = cq.from(Album.class); //FROM
+        Predicate condition = cb.equal(a.get(Album_.name), "Willie Nelson's Greatest Hits");
+        cq.where(condition);
+        TypedQuery<Album> q = em.createQuery(cq);
+        List<Album> albums = q.getResultList();
+        assertEquals(2, albums.size());
+    }
 
-//        EntityTransaction tx = em.getTransaction();
-//        tx.begin();
-//        try {
-//            em.remove(em.find(Album.class, 1L));
-//            em.flush();
-//            tx.commit();
-//        } catch (Exception e) {
-//            tx.rollback();
-//        }
+    @Test
+    public void basicQueryCriteriaWithOrder() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Album> cq = cb.createQuery(Album.class); //return type
+        Root<Album> a = cq.from(Album.class); //FROM
+        cq.orderBy(cb.asc(a.get(Album_.name)));
+        Predicate condition = cb.equal(a.get(Album_.name), "Willie Nelson's Greatest Hits");
+        cq.where(condition);
+        TypedQuery<Album> q = em.createQuery(cq);
+        List<Album> albums = q.getResultList();
+        assertEquals(2, albums.size());
     }
 
     @After
