@@ -37,7 +37,7 @@ public class Countdown {
     }
 
     @OneToMany
-    @OrderColumn(name="rank")
+    @OrderColumn(name="ranking")
     public List<Track> getTracks() {
         return tracks;
     }

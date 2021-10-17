@@ -37,17 +37,18 @@ public class CRUDTest {
         tx.begin();
         try {
             Album album = new Album("One Two Three");
-            album.setId(1L);
             em.persist(album);
             em.flush();
             tx.commit();
         } catch (Exception e) {
+            e.printStackTrace();
             tx.rollback();
         }
     }
 
     @Test
     public void readAlbum() {
+        //Ensure that the ID is correct, check with database
         Album album = em.find(Album.class, 1L);
         assertEquals("One Two Three", album.getName());
     }

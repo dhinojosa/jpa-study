@@ -13,11 +13,10 @@
                       value="jdbc:mysql://localhost:3306/mydb"/>
             <property name="javax.persistence.jdbc.user" value="danno"/>
             <property name="javax.persistence.jdbc.password" value=""/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
 
-
-            <property name="hibernate.connection.provider_class"
-                      value="org.hibernate.connection.C3P0ConnectionProvider" />
+<!--            <property name="hibernate.connection.provider_class"-->
+<!--                      value="org.hibernate.connection.C3P0ConnectionProvider"/>-->
             <property name="hibernate.c3p0.max_size" value="100" />
             <property name="hibernate.c3p0.min_size" value="0" />
             <property name="hibernate.c3p0.acquire_increment" value="1" />

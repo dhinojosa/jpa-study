@@ -4,6 +4,11 @@ import org.junit.*;
 
 import javax.persistence.*;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -30,11 +35,29 @@ public class JPAQLTest {
         em = emf.createEntityManager();
     }
 
+    @Test
+    public void createAlbumThriller() {
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        try {
+            Album album = new Album("Thriller");
+            Artist michaelJackson = new Artist("Michael", "Jackson");
+            album.setPerformers(Collections.singletonList(michaelJackson));
+            album.setReleaseDate(Date.from(LocalDate.of(1982, 11, 30).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            em.persist(album);
+            em.flush();
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            tx.rollback();
+        }
+    }
+
     @SuppressWarnings("unchecked")
     @Test
     public void selectAlbumByNameQuery() {
         Query query = em.createQuery
-                ("SELECT a FROM Album as a WHERE a.name = 'Zeppelin I'");
+                ("SELECT a FROM Album as a WHERE a.name = 'Thriller'");
         List<Album> list = (List<Album>) query.getResultList();
         assertEquals(1, list.size());
     }
@@ -42,7 +65,7 @@ public class JPAQLTest {
     @Test
     public void selectAlbumByNameTypedQuery() {
         TypedQuery<Album> query = em.createQuery
-                ("SELECT a FROM Album as a WHERE a.name = 'Zeppelin I'", Album.class);
+                ("SELECT a FROM Album as a WHERE a.name = 'Thriller'", Album.class);
         List<Album> list = query.getResultList();
         assertEquals(1, list.size());
     }
@@ -50,7 +73,7 @@ public class JPAQLTest {
     @Test
     public void selectAlbumByLikeName() {
         TypedQuery<Album> query = em.createQuery
-                ("SELECT a FROM Album as a WHERE a.name LIKE 'Zep%'", Album.class);
+                ("SELECT a FROM Album as a WHERE a.name LIKE 'Thri%'", Album.class);
         List<Album> list = query.getResultList();
         assertEquals(1, list.size());
     }

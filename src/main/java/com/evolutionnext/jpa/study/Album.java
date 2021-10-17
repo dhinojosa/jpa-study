@@ -1,10 +1,9 @@
 package com.evolutionnext.jpa.study;
 
-import com.google.common.base.Objects;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -50,7 +49,7 @@ public class Album {
         this.name = name;
     }
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "xyz_album_performers",
             joinColumns = @JoinColumn(name = "albumID"),
             inverseJoinColumns = @JoinColumn(name = "performerID"))
@@ -105,14 +104,14 @@ public class Album {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("name", name).toString();
+        return Objects.toString(name);
     }
 
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Album)) return false;
         Album other = (Album) o;
-        return Objects.equal(name, other.name);
+        return Objects.equals(name, other.name);
     }
 
     @Override
